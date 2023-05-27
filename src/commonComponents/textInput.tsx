@@ -4,14 +4,16 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 type InputFieldProps = {
   label: string;
   placeholder?: string;
-  value: string;
+  value: string | number;
+  type?: 'text' | 'number';
   onChangeText: (value: string) => void;
 };
 
 function InputField({
   label,
   placeholder,
-  value,
+  type,
+  value = '',
   onChangeText,
 }: InputFieldProps) {
   return (
@@ -19,9 +21,10 @@ function InputField({
       <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.fieldInput}
-        value={value}
+        value={value.toString()}
         placeholder={placeholder}
         onChangeText={onChangeText}
+        keyboardType={type === 'number' ? 'numeric' : 'default'}
       />
     </View>
   );

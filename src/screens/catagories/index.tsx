@@ -2,29 +2,42 @@ import React from 'react';
 import {View, Text, TextInput, Switch} from 'react-native';
 import {styles} from './style';
 import DatePicker from 'react-native-date-picker';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import InputField from '../../commonComponents/textInput';
 import SwitchField from '../../commonComponents/switchField';
 import DatePickerField from '../../commonComponents/datePickerField';
+import useCategory from '../../store/useCategory';
+import Category from './category';
+import Fab from '../../commonComponents/fab';
 
 function Catagories() {
-  const [date, setDate] = React.useState(new Date());
+  const {categories, addNewCategory} = useCategory();
+
+  const [expanded, setExpanded] = React.useState<null | string>(null);
+
+  const addNewCategoryHandler = () => {
+    addNewCategory();
+  };
 
   return (
-    <View style={{backgroundColor: '#ffff'}}>
-      <View style={styles.fieldsCont}>
-        <InputField value='' placeholder='' label='search' onChangeText={()=>{}} />
-        <InputField value='' placeholder='' label='search' onChangeText={()=>{}} />
-        <InputField value='' placeholder='' label='search' onChangeText={()=>{}} />
-        <InputField value='' placeholder='' label='search' onChangeText={()=>{}} />
+    <>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* list all categories */}
 
-        <SwitchField  value={true} onChange={()=>{}} label="fjsl"/>
-
-        <DatePickerField date={date} setDate={setDate} />
-
-      
-      </View>
-    </View>
+        {categories.map((category, index) => {
+          return (
+            <Category
+              key={index}
+              category={category}
+              onExpand={(val: string | null) => setExpanded(val)}
+              expanded={expanded}
+            />
+          );
+        })}
+      </ScrollView>
+      {/* FAB to add a new category */}
+      <Fab text="+" onPress={addNewCategoryHandler} />
+    </>
   );
 }
 

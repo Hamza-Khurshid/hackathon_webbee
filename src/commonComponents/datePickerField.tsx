@@ -4,19 +4,21 @@ import DatePicker from 'react-native-date-picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type DatePickerFieldProps = {
+  label: string;
   date: Date;
   setDate: (date: Date) => void;
 };
 
-function DatePickerField({date, setDate}: DatePickerFieldProps) {
+function DatePickerField({label, date = new Date(), setDate}: DatePickerFieldProps) {
   const [pickerVisible, setPickerVisible] = React.useState(false);
 
   return (
     <View>
+       <Text style={styles.label}>{label}</Text>
       <TouchableOpacity onPress={() => setPickerVisible(true)}>
-        <Text style={styles.label}>Date Picker</Text>
+        
         <Text style={styles.fieldInput}>
-          {date.toLocaleDateString('en-US', {
+          {(date).toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'short',
             year: 'numeric',

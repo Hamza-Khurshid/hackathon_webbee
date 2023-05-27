@@ -1,14 +1,8 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
 import Catagories from '../screens/catagories';
-import Dashboard from '../screens/dashboard/index'
-
-
-
-
-
-
+import Dashboard from '../screens/dashboard/index';
 
 const Drawer = createDrawerNavigator();
 

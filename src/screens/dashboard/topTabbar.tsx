@@ -1,42 +1,41 @@
-import React from "react";
-import { View } from 'react-native'
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { colors } from "../../theme/colors";
-import Expandable from "../../commonComponents/expandable";
-
-
-function Random({ navigation }: any) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#fff' }}>
-
-      <Expandable />
-      <Expandable />
-
-    </View>
-  );
-}
-
+import React from 'react';
+import {Text, View} from 'react-native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {colors} from '../../theme/colors';
+import CategoryItems from '../categoryItems';
+import useCategory from '../../store/useCategory';
 
 const Tab = createMaterialTopTabNavigator();
 const Index = () => {
-  return (
+  const {categories} = useCategory();
+
+  return categories?.length ? (
     <Tab.Navigator
       screenOptions={{
-        tabBarScrollEnabled: true, tabBarIndicatorStyle: {
+        tabBarScrollEnabled: true,
+        tabBarIndicatorStyle: {
           backgroundColor: colors.primary,
           height: 2,
-
-        }
+        },
       }}
-      sceneContainerStyle={{ backgroundColor: "white" }}
-    >
-      <Tab.Screen name={'One'} component={Random} />
-      <Tab.Screen name={'Two'} component={Random} />
-      <Tab.Screen name={'Thress'} component={Random} />
-      <Tab.Screen name={'Four'} component={Random} />
-      <Tab.Screen name={'Five'} component={Random} options={{ tabBarLabel: 'Instructor Questions' }} />
-
+      sceneContainerStyle={{backgroundColor: 'white'}}>
+      {categories.map((item, index) => {
+        return (
+          <Tab.Screen
+            key={index}
+            name={item.id}
+            component={CategoryItems}
+            options={{
+              tabBarLabel: item.name || 'new category',
+            }}
+          />
+        );
+      })}
     </Tab.Navigator>
+  ) : (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>No Category Found</Text>
+    </View>
   );
 };
 
