@@ -1,12 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import React, { Fragment } from 'react'
 import { colors } from '../theme/colors'
+import Delete from '../assets/delete.png'
+import Down from '../assets/down.png'
 
-const Index = () => {
+type Props = {
+  children: React.ReactNode,
+  open: boolean,
+  toggle: () => void
+}
+
+const Index = ({ children, open, toggle }: Props) => {
   return (
-    <View style={styles.item}>
-      <Text>Index</Text>
-    </View>
+    <Fragment>
+      <View style={styles.item}>
+        <Text>Index</Text>
+        <View style={styles.row}>
+          <Image source={Delete} style={[styles.icon, styles.mR]} />
+          <TouchableOpacity onPress={toggle}>
+            <Image source={Down} style={[styles.icon, open && styles.rotate]} />
+          </TouchableOpacity>
+        </View>
+      </View>
+      {open && children}
+    </Fragment>
   )
 }
 
@@ -14,13 +31,32 @@ export default Index
 
 const styles = StyleSheet.create({
   item: {
-    width: '95%',
+    width: '90%',
     height: 60,
-    backgroundColor: colors.white,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5
+    backgroundColor: colors.base,
+    marginTop: 20,
+    borderRadius: 5,
+    alignItems: "center",
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: 16,
+    color: colors.black
+  },
+  icon: {
+    width: 20, height: 20,
+    resizeMode: 'contain'
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  mR: {
+    marginRight: 15
+  },
+  rotate: {
+    transform: [{ rotate: '180deg' }]
   }
 })

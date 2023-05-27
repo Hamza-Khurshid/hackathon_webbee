@@ -2,12 +2,15 @@ import React from "react";
 import { View } from 'react-native'
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { colors } from "../../theme/colors";
-
+import Expandable from "../../commonComponents/expandable";
 
 
 function Random({ navigation }: any) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#fff' }}>
+
+      <Expandable />
+      <Expandable />
 
     </View>
   );
