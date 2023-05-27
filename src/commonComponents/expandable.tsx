@@ -22,8 +22,9 @@ const Index = ({ children, open, toggle }: Props) => {
           </TouchableOpacity>
         </View>
       </View>
-      {open && children}
+      {open && <View style={styles.subContainer}>{children}</View>}
     </Fragment>
+
   )
 }
 
@@ -32,14 +33,22 @@ export default Index
 const styles = StyleSheet.create({
   item: {
     width: '90%',
-    height: 60,
     backgroundColor: colors.base,
     marginTop: 20,
     borderRadius: 5,
-    alignItems: "center",
     paddingHorizontal: 20,
+    height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: "center",
+    alignSelf: 'center'
+
+  },
+  subContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: colors.base,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 16,
