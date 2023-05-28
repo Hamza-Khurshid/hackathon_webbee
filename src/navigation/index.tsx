@@ -7,7 +7,6 @@ import useCategory from '../store/useCategory';
 import {Category} from '../interfaces';
 import CategoryItems from '../screens/categoryItems';
 
-
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -23,14 +22,13 @@ export default function App() {
             title: 'Manage Categories',
           }}
         />
-        {categories.map((item: Category, index) => {
+        {categories.map((item: Category) => {
           return (
             <Drawer.Screen
-              name={`Category ${index + 1}`}
-              component={Catagories}
-              key={index}
+              name={item.id}
+              component={CategoryItems}
               options={{
-                title: item?.name || `Category ${index + 1}`,
+                title: item.name,
               }}
             />
           );
