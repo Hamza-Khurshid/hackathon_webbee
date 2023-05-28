@@ -75,4 +75,20 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  titlePickCont: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 20,
+    paddingHorizontal: 5,
+  },
+  titlePicker: {
+    borderWidth: 1,
+    borderColor: '#B8B8B8',
+    borderRadius: 2,
+    paddingHorizontal: 10,
+    height: 38,
+    marginTop: 5,
+    backgroundColor: '#FFFFFF',
+    minWidth: 150,
+  }
 });

@@ -5,6 +5,8 @@ import Catagories from '../screens/catagories';
 import Dashboard from '../screens/dashboard/index';
 import useCategory from '../store/useCategory';
 import {Category} from '../interfaces';
+import CategoryItems from '../screens/categoryItems';
+
 
 const Drawer = createDrawerNavigator();
 

@@ -9,6 +9,7 @@ type MachinesStoreInterface = {
   updateMachine: (updatedMachine: Machine) => void;
   deleteMachine: (machineId: string) => void;
   getMachines: (id: string) => Machine[];
+  deleteAllMachines: (categoryId: string) => void;
 };
 
 const useMachines = create(
@@ -40,6 +41,12 @@ const useMachines = create(
           machines: state.machines.filter(machine => machine.id !== machineId),
         }));
       },
+
+      deleteAllMachines: (categoryId) => {
+        set(state => ({
+          machines: state.machines.filter(machine => machine.categoryId !== categoryId),
+        }));
+      }
     }),
     {
       name: 'machines-storage', // unique name

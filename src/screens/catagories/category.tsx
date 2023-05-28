@@ -8,6 +8,7 @@ import useCategory from '../../store/useCategory';
 import RNPickerSelect from 'react-native-picker-select';
 import Delete from '../../assets/delete.png';
 import SelectIcon from '../../assets/select.png';
+import useMachines from '../../store/useMachines';
 
 const fieldTypes = ['text', 'number', 'date', 'checkbox'];
 
@@ -19,6 +20,7 @@ type CategoryProps = {
 
 function Category({category, expanded, onExpand}: CategoryProps) {
   const {addNewField, updateCategory, deleteCategory} = useCategory();
+  const {deleteAllMachines} = useMachines();
 
   const toggle = () => {
     expanded === category.id ? onExpand(null) : onExpand(category.id);
@@ -41,12 +43,19 @@ function Category({category, expanded, onExpand}: CategoryProps) {
     key: string,
   ) => {
     let newCategory = {...category};
-    newCategory.fields[fieldId][key] = value;
+    newCategory.fields[fieldId] = {
+      ...newCategory.fields[fieldId],
+      [key]: value,
+    };
     updateCategory(newCategory);
   };
 
   const deleteCategoryHandler = () => {
+    // delete category
     deleteCategory(category.id);
+
+    // delete all machines of this category
+    deleteAllMachines(category.id);
   };
 
   const deleteCategoryFieldHandler = (fieldId: string) => {
@@ -124,6 +133,42 @@ function Category({category, expanded, onExpand}: CategoryProps) {
             );
           })}
         </View>
+
+        {Object.keys(categoryFields || {}).length ? (
+          // {/* select a field for title */}
+          <View style={[styles.row, styles.titlePickCont]}>
+            <Text>Title Field</Text>
+            <View style={styles.row}>
+              <RNPickerSelect
+                placeholder={''}
+                onValueChange={value =>
+                  updateCategoryHandler(value, 'titleFieldId')
+                }
+                value={category.titleFieldId || ''}
+                items={Object.keys(categoryFields || {}).map(fieldId => {
+                  let item = categoryFields[fieldId];
+                  return {
+                    label:
+                      String(item.name).charAt(0).toUpperCase() +
+                      String(item.name).slice(1),
+                    value: fieldId,
+                  };
+                })}
+                style={{
+                  inputIOS: styles.titlePicker,
+                }}
+                touchableWrapperProps={{
+                  hitSlop: {
+                    right: 50,
+                    top: 20,
+                    bottom: 20,
+                  },
+                }}
+              />
+              <Image source={SelectIcon} style={styles.select} />
+            </View>
+          </View>
+        ) : null}
       </View>
     </Exandable>
   );
