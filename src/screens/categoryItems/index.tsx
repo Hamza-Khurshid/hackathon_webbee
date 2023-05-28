@@ -20,7 +20,7 @@ const Index = ({route}: Props) => {
   const [open, setOpen] = useState<number | null>(null);
   const {categories} = useCategory();
 
-  const {machines, addNewMachine, deleteMachine} = useMachines();
+  const {getMachines, addNewMachine, deleteMachine} = useMachines();
 
   const toggle = (index: number) => () => {
     open === index ? setOpen(null) : setOpen(index);
@@ -45,7 +45,7 @@ const Index = ({route}: Props) => {
   return (
     <>
       <View style={styles.container}>
-        {machines.map((item, index) => {
+        {getMachines(activeCategory?.id as string)?.map((item, index) => {
           return (
             <Exandable
               open={open == index}

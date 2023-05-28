@@ -8,18 +8,21 @@ type MachinesStoreInterface = {
   addNewMachine: (machineObj: Machine) => void;
   updateMachine: (updatedMachine: Machine) => void;
   deleteMachine: (machineId: string) => void;
+  getMachines: (id: string) => Machine[];
 };
 
 const useMachines = create(
   persist<MachinesStoreInterface>(
-    set => ({
+    (set, get) => ({
       machines: [],
+      getMachines: id => {
+        return get().machines.filter(machine => machine.categoryId === id);
+      },
       addNewMachine: machineObj => {
         set(state => ({
           machines: [...state.machines, machineObj],
         }));
       },
-
       updateMachine: updatedMachine => {
         set(state => ({
           machines: state.machines.map(machine => {
@@ -37,51 +40,6 @@ const useMachines = create(
           machines: state.machines.filter(machine => machine.id !== machineId),
         }));
       },
-
-      // updateCategory: (updatedCategory) => {
-
-      //   set(state => ({
-      //     categories: state.categories.map(category => {
-      //       if (category.id === updatedCategory.id) {
-      //         return updatedCategory;
-      //       }
-
-      //       return category;
-      //     }),
-      //   }));
-
-      // },
-
-      // deleteCategory: (categoryId) => {
-      //   set(state => ({
-      //     categories: state.categories.filter(category => category.id !== categoryId),
-      //   }));
-      // },
-
-      // addNewField: (categoryId: string) => {
-      //   const field:Field = {
-      //     name: '',
-      //     type: 'text',
-      //     isTitleField: false,
-      //   };
-
-      //   set(state => ({
-      //     categories: state.categories.map(category => {
-      //       if (category.id === categoryId) {
-      //         return {
-      //           ...category,
-      //           fields: {
-      //             [generateUniqueId()]: field,
-      //             ...category.fields,
-
-      //           },
-      //         };
-      //       }
-
-      //       return category;
-      //     }),
-      //   }));
-      // }
     }),
     {
       name: 'machines-storage', // unique name
