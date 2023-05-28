@@ -46,11 +46,23 @@ const Index = ({route}: Props) => {
     <>
       <View style={styles.container}>
         {getMachines(activeCategory?.id as string)?.map((item, index) => {
+          const titleValue =
+            item.attributes?.[activeCategory?.titleFieldId as string] ||
+            'New Machine';
+          const title =
+            typeof titleValue === 'object'
+              ? titleValue.toLocaleDateString('en-US', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                })
+              : titleValue.toString();
+
           return (
             <Exandable
               open={open == index}
               toggle={toggle(index)}
-              title={`${activeCategory?.name} ${index + 1}`}
+              title={title}
               key={index}
               onDelete={() => deleteMachineHandler(item.id)}>
               <Item machine={item} category={activeCategory as Category} />

@@ -57,7 +57,8 @@ export default Index;
 const styles = StyleSheet.create({
   item: {
     width: '90%',
-    backgroundColor: colors.base,
+    borderWidth: 1,
+    borderColor: colors.base,
     marginTop: 20,
     borderRadius: 5,
     paddingHorizontal: 20,

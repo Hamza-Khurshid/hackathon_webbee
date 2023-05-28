@@ -23,6 +23,7 @@ const useCategory = create(
           name: '',
           createdAt: new Date(),
           fields: {},
+          titleFieldId: '',
         };
 
         set(state => ({
@@ -54,7 +55,6 @@ const useCategory = create(
         const field: Field = {
           name: '',
           type: 'text',
-          isTitleField: false,
         };
 
         set(state => ({
