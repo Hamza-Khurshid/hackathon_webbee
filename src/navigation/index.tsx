@@ -22,9 +22,10 @@ export default function App() {
             title: 'Manage Categories',
           }}
         />
-        {categories.map((item: Category) => {
+        {categories.map((item: Category, idx) => {
           return (
             <Drawer.Screen
+              key={idx}
               name={item.id}
               component={CategoryItems}
               options={{

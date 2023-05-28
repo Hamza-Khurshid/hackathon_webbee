@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Platform} from 'react-native';
 import {styles} from './style';
 import Exandable from '../../commonComponents/expandable';
 import {Category as CategoryType} from '../../interfaces';
@@ -104,6 +104,9 @@ function Category({category, expanded, onExpand}: CategoryProps) {
                           value: pItem,
                         };
                       })}
+                      style={{
+                        inputAndroid: styles.typePickerAnd,
+                      }}
                       touchableWrapperProps={{
                         hitSlop: {
                           right: 50,
@@ -112,7 +115,15 @@ function Category({category, expanded, onExpand}: CategoryProps) {
                         },
                       }}
                     />
-                    <Image source={SelectIcon} style={styles.select} />
+
+                    {
+                      Platform.OS === 'ios' ? (
+                        <Image source={SelectIcon} style={styles.select} />
+
+                      ) : null
+
+                    }
+                    
                   </View>
                   {/* delete category filed */}
                   <TouchableOpacity
@@ -140,7 +151,7 @@ function Category({category, expanded, onExpand}: CategoryProps) {
             <Text>Title Field</Text>
             <View style={styles.row}>
               <RNPickerSelect
-                placeholder={''}
+                placeholder={'Select a field'}
                 onValueChange={value =>
                   updateCategoryHandler(value, 'titleFieldId')
                 }
@@ -156,6 +167,7 @@ function Category({category, expanded, onExpand}: CategoryProps) {
                 })}
                 style={{
                   inputIOS: styles.titlePicker,
+                  inputAndroid: styles.titlePickerAnd,
                 }}
                 touchableWrapperProps={{
                   hitSlop: {
@@ -165,7 +177,12 @@ function Category({category, expanded, onExpand}: CategoryProps) {
                   },
                 }}
               />
-              <Image source={SelectIcon} style={styles.select} />
+
+              {
+                Platform.OS === 'ios' ? (
+                  <Image source={SelectIcon} style={styles.select} />
+                ) : null
+              }
             </View>
           </View>
         ) : null}

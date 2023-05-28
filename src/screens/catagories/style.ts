@@ -90,5 +90,17 @@ export const styles = StyleSheet.create({
     marginTop: 5,
     backgroundColor: '#FFFFFF',
     minWidth: 150,
+  },
+  titlePickerAnd: {
+    borderWidth: 1,
+    borderColor: '#B8B8B8',
+    borderRadius: 2,
+    paddingHorizontal: 10,
+    marginTop: 5,
+    backgroundColor: '#FFFFFF',
+    minWidth: 150,
+  },
+  typePickerAnd: {
+    minWidth: 150,
   }
 });
