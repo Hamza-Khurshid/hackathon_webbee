@@ -9,30 +9,38 @@ type Props = {
   children: React.ReactNode;
   open: boolean;
   editable?: boolean;
-  title: string;
+  title?: string;
   onChangeTitle?: (value: string) => void;
   onDelete: () => void;
   toggle: () => void;
 };
 
-const Index = ({children, open, editable,title, toggle, onChangeTitle, onDelete}: Props) => {
+const Index = ({
+  children,
+  open,
+  editable,
+  title,
+  toggle,
+  onChangeTitle,
+  onDelete,
+}: Props) => {
   return (
     <Fragment>
       <View style={styles.item}>
         {editable ? (
           <InputField
             label=""
-            value={title}
+            value={title as string}
             onChangeText={onChangeTitle as (value: string) => void}
+            containerStyle={styles.inputContainer}
+            style={styles.input}
           />
         ) : (
-          <Text>Index</Text>
+          <Text>{title}</Text>
         )}
-
         <View style={styles.row}>
           <TouchableOpacity onPress={onDelete}>
-
-          <Image source={Delete} style={[styles.icon, styles.mR]} />
+            <Image source={Delete} style={[styles.icon, styles.mR]} />
           </TouchableOpacity>
           <TouchableOpacity onPress={toggle}>
             <Image source={Down} style={[styles.icon, open && styles.rotate]} />
@@ -64,6 +72,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: colors.base,
     paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   title: {
     fontSize: 16,
@@ -83,5 +92,13 @@ const styles = StyleSheet.create({
   },
   rotate: {
     transform: [{rotate: '180deg'}],
+  },
+  inputContainer: {
+    paddingVertical: 0,
+    width: '75%',
+  },
+  input: {
+    marginTop: 0,
+    width: '100%',
   },
 });

@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-
   container: {
     backgroundColor: colors.white,
     zIndex: 100,
@@ -32,7 +31,7 @@ export const styles = StyleSheet.create({
     height: 30,
     borderRadius: 10,
     borderColor: colors.primary,
-    borderWidth: 2,
+    borderWidth: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -42,12 +41,25 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 18,
+    height: 18,
     resizeMode: 'contain',
   },
-
-  mR: {
-    marginRight: 15,
+  mL: {
+    marginLeft: 10,
+  },
+  mT: {
+    marginTop: 25,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputContainer: {
+    paddingVertical: 0,
+    marginTop: 5,
+  },
+  input: {
+    marginTop: 0,
   },
 });

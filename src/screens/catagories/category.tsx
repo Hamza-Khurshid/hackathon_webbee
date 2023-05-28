@@ -1,9 +1,7 @@
 import React from 'react';
-
-import Exandable from '../../commonComponents/expandable';
-
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {styles} from './style';
+import Exandable from '../../commonComponents/expandable';
 import {Category as CategoryType} from '../../interfaces';
 import InputField from '../../commonComponents/textInput';
 import useCategory from '../../store/useCategory';
@@ -22,7 +20,7 @@ function Category({category, expanded, onExpand}: CategoryProps) {
   const {addNewField, updateCategory, deleteCategory} = useCategory();
 
   const toggle = () => {
-    expanded == category.id ? onExpand(null) : onExpand(category.id);
+    expanded === category.id ? onExpand(null) : onExpand(category.id);
   };
 
   const addNewFieldHandler = () => {
@@ -41,6 +39,7 @@ function Category({category, expanded, onExpand}: CategoryProps) {
     fieldId: string,
     key: string,
   ) => {
+    console.log('value to be', value);
     let newCategory = {...category};
     newCategory.fields[fieldId][key] = value;
     updateCategory(newCategory);
@@ -67,7 +66,6 @@ function Category({category, expanded, onExpand}: CategoryProps) {
       <View>
         <View style={styles.fieldsHead}>
           <Text>Fields</Text>
-
           <TouchableOpacity
             style={styles.addFieldBtn}
             onPress={addNewFieldHandler}>
@@ -80,35 +78,38 @@ function Category({category, expanded, onExpand}: CategoryProps) {
         <View>
           {Object.keys(categoryFields || {}).map((fieldId, index) => {
             let item = categoryFields[fieldId];
-
             return (
               <View key={index}>
+                <View style={[styles.row, styles.mT]}>
+                  <RNPickerSelect
+                    onValueChange={value =>
+                      updateCategoryFieldHandler(value, fieldId, 'type')
+                    }
+                    value={item.type}
+                    items={fieldTypes.map((pItem: any) => {
+                      return {
+                        label:
+                          String(pItem).charAt(0).toUpperCase() +
+                          String(pItem).slice(1),
+                        value: pItem,
+                      };
+                    })}
+                  />
+                  {/* delete category filed */}
+                  <TouchableOpacity
+                    onPress={() => deleteCategoryFieldHandler(fieldId)}>
+                    <Image source={Delete} style={[styles.icon, styles.mL]} />
+                  </TouchableOpacity>
+                </View>
                 <InputField
                   label=""
                   value={item.name}
+                  containerStyle={styles.inputContainer}
+                  style={styles.input}
                   onChangeText={val =>
                     updateCategoryFieldHandler(val, fieldId, 'name')
                   }
                 />
-
-                <RNPickerSelect
-                  onValueChange={value =>
-                    updateCategoryFieldHandler(value, fieldId, 'type')
-                  }
-                  value={item.type}
-                  items={fieldTypes.map((item, index) => {
-                    return {
-                      label: item,
-                      value: item,
-                    };
-                  })}
-                />
-
-                {/* delete category filed */}
-                <TouchableOpacity
-                  onPress={() => deleteCategoryFieldHandler(fieldId)}>
-                  <Image source={Delete} style={[styles.icon, styles.mR]} />
-                </TouchableOpacity>
               </View>
             );
           })}

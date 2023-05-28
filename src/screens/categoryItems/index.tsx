@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useState} from 'react';
 import Exandable from '../../commonComponents/expandable';
 import styles from './style';
@@ -8,32 +8,35 @@ import useCategory from '../../store/useCategory';
 import {Category, Machine} from '../../interfaces';
 import {generateUniqueId} from '../../utils/uniqueId';
 import useMachines from '../../store/useMachines';
+import {RouteProp} from '@react-navigation/native';
 
-const Index = ({route}) => {
-  const [open, setOpen] = useState(null);
+// navigation: NavigationProp<any, any>;
+
+type Props = {
+  route: RouteProp<any, any>;
+};
+
+const Index = ({route}: Props) => {
+  const [open, setOpen] = useState<number | null>(null);
   const {categories} = useCategory();
 
   const {machines, addNewMachine, deleteMachine} = useMachines();
 
   const toggle = (index: number) => () => {
-    open == index ? setOpen(null) : setOpen(index);
+    open === index ? setOpen(null) : setOpen(index);
   };
 
   const activeCategory = categories.find(item => item.id == route.name);
 
-
   const addNewMachineHandler = () => {
-
     const newMachine: Machine = {
       id: generateUniqueId(),
       categoryId: activeCategory?.id as string,
       attributes: {},
     };
 
-
     addNewMachine(newMachine);
   };
-
 
   const deleteMachineHandler = (machineId: string) => {
     deleteMachine(machineId);
@@ -47,6 +50,7 @@ const Index = ({route}) => {
             <Exandable
               open={open == index}
               toggle={toggle(index)}
+              title={`${activeCategory?.name} ${index + 1}`}
               key={index}
               onDelete={() => deleteMachineHandler(item.id)}>
               <Item machine={item} category={activeCategory as Category} />
