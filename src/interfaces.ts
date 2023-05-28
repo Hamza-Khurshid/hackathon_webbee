@@ -1,6 +1,3 @@
-
-
-
 export type Category = {
   id: string;
   name: string;
@@ -18,11 +15,10 @@ export type Field = {
   isTitleField: boolean;
 };
 
-
 export type Machine = {
-    categoryId: string;
-    id: string;
-    attributes: {
-        [key: string]: string | number | boolean | Date;
-    }
-}
+  categoryId: string;
+  id: string;
+  attributes: {
+    [key: string]: string | number | boolean | Date;
+  };
+};

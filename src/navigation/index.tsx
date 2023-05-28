@@ -14,9 +14,24 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Dashboard">
         <Drawer.Screen name="Dashboard" component={Dashboard} />
-        <Drawer.Screen name="Categories" component={Catagories} />
-        {categories.map((item: Category) => {
-          return <Drawer.Screen name={item?.name} component={Catagories} />;
+        <Drawer.Screen
+          name="Categories"
+          component={Catagories}
+          options={{
+            title: 'Manage Categories',
+          }}
+        />
+        {categories.map((item: Category, index) => {
+          return (
+            <Drawer.Screen
+              name={`Category ${index + 1}`}
+              component={Catagories}
+              key={index}
+              options={{
+                title: item?.name || `Category ${index + 1}`,
+              }}
+            />
+          );
         })}
       </Drawer.Navigator>
     </NavigationContainer>

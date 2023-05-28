@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import React, {useState} from 'react';
 import Exandable from '../../commonComponents/expandable';
 import styles from './style';
@@ -9,8 +9,6 @@ import {Category, Machine} from '../../interfaces';
 import {generateUniqueId} from '../../utils/uniqueId';
 import useMachines from '../../store/useMachines';
 import {RouteProp} from '@react-navigation/native';
-
-// navigation: NavigationProp<any, any>;
 
 type Props = {
   route: RouteProp<any, any>;
@@ -43,8 +41,10 @@ const Index = ({route}: Props) => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
+    <View style={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}>
         {getMachines(activeCategory?.id as string)?.map((item, index) => {
           return (
             <Exandable
@@ -57,10 +57,10 @@ const Index = ({route}: Props) => {
             </Exandable>
           );
         })}
-      </View>
+      </ScrollView>
 
       <Fab text="+" onPress={addNewMachineHandler} />
-    </>
+    </View>
   );
 };
 

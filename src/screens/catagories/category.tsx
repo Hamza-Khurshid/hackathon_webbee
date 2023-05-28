@@ -41,9 +41,7 @@ function Category({category, expanded, onExpand}: CategoryProps) {
     key: string,
   ) => {
     let newCategory = {...category};
-    newCategory.fields[fieldId as unknown as keyof CategoryType][
-      key as unknown as null
-    ] = value;
+    newCategory.fields[fieldId][key] = value;
     updateCategory(newCategory);
   };
 
@@ -62,7 +60,7 @@ function Category({category, expanded, onExpand}: CategoryProps) {
       open={expanded == category.id}
       toggle={toggle}
       editable={true}
-      title={category.name}
+      title={category?.name}
       onChangeTitle={val => updateCategoryHandler(val, 'name')}
       onDelete={deleteCategoryHandler}>
       <View>
