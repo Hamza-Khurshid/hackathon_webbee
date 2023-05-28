@@ -1,6 +1,5 @@
 import {create} from 'zustand';
-import {generateUniqueId} from '../utils/uniqueId';
-import {Category, Field, Machine} from '../interfaces';
+import {Machine} from '../interfaces';
 import {persist, createJSONStorage} from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -15,7 +14,6 @@ const useMachines = create(
   persist<MachinesStoreInterface>(
     set => ({
       machines: [],
-
       addNewMachine: machineObj => {
         set(state => ({
           machines: [...state.machines, machineObj],
@@ -34,13 +32,11 @@ const useMachines = create(
         }));
       },
 
-
-      deleteMachine: (machineId) => {
+      deleteMachine: machineId => {
         set(state => ({
           machines: state.machines.filter(machine => machine.id !== machineId),
         }));
       },
-
 
       // updateCategory: (updatedCategory) => {
 

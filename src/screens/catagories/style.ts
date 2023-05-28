@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   addFieldBtn: {
     width: 30,
     height: 30,
-    borderRadius: 10,
+    borderRadius: 7,
     borderColor: colors.primary,
     borderWidth: 1.5,
     justifyContent: 'center',
@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   icon: {
-    width: 18,
-    height: 18,
+    width: 20,
+    height: 20,
     resizeMode: 'contain',
   },
   mL: {
@@ -51,9 +51,11 @@ export const styles = StyleSheet.create({
   mT: {
     marginTop: 25,
   },
-  row: {
+  rowJustify: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
   },
   inputContainer: {
     paddingVertical: 0,
@@ -61,5 +63,15 @@ export const styles = StyleSheet.create({
   },
   input: {
     marginTop: 0,
+  },
+  select: {
+    height: 12,
+    width: 12,
+    marginLeft: 5,
+    resizeMode: 'contain',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

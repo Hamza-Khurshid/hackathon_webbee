@@ -7,6 +7,7 @@ import InputField from '../../commonComponents/textInput';
 import useCategory from '../../store/useCategory';
 import RNPickerSelect from 'react-native-picker-select';
 import Delete from '../../assets/delete.png';
+import SelectIcon from '../../assets/select.png';
 
 const fieldTypes = ['text', 'number', 'date', 'checkbox'];
 
@@ -39,9 +40,10 @@ function Category({category, expanded, onExpand}: CategoryProps) {
     fieldId: string,
     key: string,
   ) => {
-    console.log('value to be', value);
     let newCategory = {...category};
-    newCategory.fields[fieldId][key] = value;
+    newCategory.fields[fieldId as unknown as keyof CategoryType][
+      key as unknown as null
+    ] = value;
     updateCategory(newCategory);
   };
 
@@ -80,25 +82,35 @@ function Category({category, expanded, onExpand}: CategoryProps) {
             let item = categoryFields[fieldId];
             return (
               <View key={index}>
-                <View style={[styles.row, styles.mT]}>
-                  <RNPickerSelect
-                    onValueChange={value =>
-                      updateCategoryFieldHandler(value, fieldId, 'type')
-                    }
-                    value={item.type}
-                    items={fieldTypes.map((pItem: any) => {
-                      return {
-                        label:
-                          String(pItem).charAt(0).toUpperCase() +
-                          String(pItem).slice(1),
-                        value: pItem,
-                      };
-                    })}
-                  />
+                <View style={[styles.rowJustify, styles.mT]}>
+                  <View style={styles.row}>
+                    <RNPickerSelect
+                      onValueChange={value =>
+                        updateCategoryFieldHandler(value, fieldId, 'type')
+                      }
+                      value={item.type}
+                      items={fieldTypes.map((pItem: any) => {
+                        return {
+                          label:
+                            String(pItem).charAt(0).toUpperCase() +
+                            String(pItem).slice(1),
+                          value: pItem,
+                        };
+                      })}
+                      touchableWrapperProps={{
+                        hitSlop: {
+                          right: 50,
+                          top: 20,
+                          bottom: 20,
+                        },
+                      }}
+                    />
+                    <Image source={SelectIcon} style={styles.select} />
+                  </View>
                   {/* delete category filed */}
                   <TouchableOpacity
                     onPress={() => deleteCategoryFieldHandler(fieldId)}>
-                    <Image source={Delete} style={[styles.icon, styles.mL]} />
+                    <Image source={Delete} style={styles.icon} />
                   </TouchableOpacity>
                 </View>
                 <InputField

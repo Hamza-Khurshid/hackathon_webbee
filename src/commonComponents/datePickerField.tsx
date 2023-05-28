@@ -9,16 +9,19 @@ type DatePickerFieldProps = {
   setDate: (date: Date) => void;
 };
 
-function DatePickerField({label, date = new Date(), setDate}: DatePickerFieldProps) {
+function DatePickerField({
+  label,
+  date = new Date(),
+  setDate,
+}: DatePickerFieldProps) {
   const [pickerVisible, setPickerVisible] = React.useState(false);
 
   return (
-    <View>
-       <Text style={styles.label}>{label}</Text>
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
       <TouchableOpacity onPress={() => setPickerVisible(true)}>
-        
         <Text style={styles.fieldInput}>
-          {(date).toLocaleDateString('en-US', {
+          {date.toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'short',
             year: 'numeric',
@@ -30,9 +33,9 @@ function DatePickerField({label, date = new Date(), setDate}: DatePickerFieldPro
         modal
         open={pickerVisible}
         date={date}
-        onConfirm={date => {
+        onConfirm={(dateVal: Date) => {
           setPickerVisible(false);
-          setDate(date);
+          setDate(dateVal);
         }}
         onCancel={() => {
           setPickerVisible(false);
@@ -46,7 +49,7 @@ export default DatePickerField;
 
 const styles = StyleSheet.create({
   label: {
-    fontWeight: 'bold',
+    fontWeight: '500',
     fontSize: 15,
     color: '#000000',
   },
@@ -58,5 +61,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginTop: 10,
     backgroundColor: '#FFFFFF',
+  },
+  container: {
+    paddingTop: 10,
   },
 });

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   label: {
-    fontWeight: 'bold',
+    fontWeight: '500',
     fontSize: 15,
     color: '#000000',
   },
